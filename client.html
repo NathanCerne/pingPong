@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Socket.IO Ping Pong Test</title>
+</head>
+
+<body>
+    <h1>Socket.IO Ping Pong Test</h1>
+    <pre id="log"></pre>
+
+    <!-- Include Socket.IO client script from CDN -->
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    <script>
+        //HTML ping pong client
+        const log = document.getElementById('log');
+
+        // Connect to your server (adjust the URL if needed)
+        const socket = io('http://0.0.0.0:3000');
+
+        socket.on('connect', () => {
+            log.textContent += 'Connected to server\n';
+
+            setInterval(() => {
+                const timestamp = Date.now();
+                log.textContent += `Sending ping with timestamp: ${timestamp}\n`;
+                socket.emit('ping', { timestamp });
+            }, 1000);
+        });
+
+        socket.on('pong', (data) => {
+            const now = Date.now();
+            const latency = now - data.timestamp;
+            log.textContent += `Pong received! Round-trip latency: ${latency} ms\n`;
+        });
+
+        socket.on('disconnect', () => {
+            log.textContent += 'Disconnected from server\n';
+        });
+    </script>
+</body>
+
+</html>
