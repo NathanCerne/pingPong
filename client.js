@@ -1,6 +1,6 @@
 //javascript ping pong client
 const io = require('socket.io-client');
-const socket = io('http://localhost:3000');
+const socket = io('http://18.226.4.98:3000');
 
 socket.on('connect', () => {
     console.log('Connected to server');
