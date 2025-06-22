@@ -7,8 +7,8 @@ const io = require('socket.io')(server, {
     }
 });
 
-server.listen(3000, '18.226.4.98', () => {
-    console.log('Server running at http://18.226.4.98:3000/');
+server.listen(3000, '0.0.0.0', () => {
+    console.log('Server running at http://0.0.0.0:3000/');
 });
 
 //console.log('Server running and listening on port 3000');
